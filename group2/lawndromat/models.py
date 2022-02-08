@@ -10,6 +10,3 @@ class User(models.Model):
     money = models.IntegerField()
     
     
-class test(models.Model):
-    testName = models.CharField(max_length=50)
-    testemail = models.CharField(max_length=50)
