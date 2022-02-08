@@ -9,3 +9,7 @@ class User(models.Model):
     userPermission = models.CharField(max_length=10)
     money = models.IntegerField()
     
+    
+class test(models.Model):
+    testName = models.CharField(max_length=50)
+    testemail = models.CharField(max_length=50)
