@@ -1,53 +1,88 @@
-# Criteria
+# Workspace Organization
 
-## Product Backlog
+All files for the project will be stored in the Github repository cs3450group2. Documentation, including the project plan, definition of requirements, and use case diagrams, are to be included in the /docs/ folder in this repository.
 
-Product Backlog in the GitHub Repository Issues
-10+ items (10 Points).
+# Version control procedures
 
-Product Backlog in the GitHub Repository Issues
-items small enough to be completed by 1 person in 1-2 workdays (2 Points).
+To keep track of work done on issues, this repository creates issue branches for each issue opened in Github. Pull requests are reviewed by at least one other member of the team before being merged into the main branch to avoid merging bad code.
 
-## README.md (6 Points)
+# Tool stack description and setup procedure
 
-README.md (revised from Phase 1, if necessary).
-1. An explanation of the organization and name scheme for the workspace
-2. Version-control procedures
-3. Tool stack description and setup procedure
-4. Build instructions
-5. Unit testing instructions
-6. System testing instructions
+Django is a convenient framework for this app since it comes with a simple SQLite database. This app will be using database features to manage many different types of data making SQLite very useful. Django also uses the Python language which will help with team functionality since we all know the language.
 
-## Project Plan (4 Points)
-Project plan (revised from Phase 1, if necessary).
-1. A summary of the project being built
-2. A description of team organization
-3. Policies, procedures, or tools for communication
-4. Risk Analysis
+## Build instructions
 
-## Requirements Definition (6 Points)
-Requirements Definition (revised from Phase 1, if necessary).
-1. Introduction and Context
-2. Users and their Goals
-3. Functional Requirements
-4. Non-functional Requirements
-5. Future Features
-6. Glossary
+- Clone project from github using the command
 
-## Use Case Diagrams (4 Points)
-Use Case Diagrams that document the actors and their goals.
+  - `bash $ git clone https://github.com/cs3450group2/milestone1.git`
 
-## Class Diagram (6 Points)
-Class Diagram that document the classes of object in the system and their relationships.
+- Create and start a virtual environment
 
-## Activity Diagrams (6 Points)
-Activity Diagrams that document key execution flows.
+  - `bash $ virtualenv --no-site-packages`
 
-## High-Fidelity prototype (12 Points)
-One of two prototypes for the purpose of improving the understanding of two or three high-priority features.
+- Install the project dependencies
 
-## Low-Fidelity prototype (10 Points)
-One of two prototypes for the purpose of improving the understanding of two or three high-priority features.
+  - `bash $ pip install -r requirements.txt`
 
-## Scrum board history (4 Points)
-History on the Scrum board showing who is working which items and when the items are completed.
+- Create a file named "secret.sh"
+
+  - `bash $ touch secrets.sh`
+
+- Obtain a secret from MiniWebTool key and add to secret.sh
+
+  - `bash $ export SECRET_KEY='<secret_key>'`
+
+- Add secret.sh to .gitignore file
+
+- Create a postgres db and add the credentials to settings.py
+
+```
+DATABASES = {
+   'default':  {
+       'ENGINE': 'django.db.backends.postgresql_psycopg2',
+       'NAME': 'db_name',
+       'USER': 'name',
+       'PASSWORD': '',
+       'HOST': 'localhost',
+       'PORT': '',
+       }
+   }
+```
+
+- Migrate in bash
+
+  - `bash $ python manage.py migrate`
+
+- Create an admin account
+
+  - `bash $ python manage.py createsuperuser`
+
+- Then complete migrations
+
+  - `bash $ python manage.py makemigrations group2`
+
+- Then migrate again
+
+  - `bash $ python manage.py migrate`
+
+- and finally
+
+  - `bash $ python manage.py runserver`
+
+Type `localhost:8000` in a browser to see the app running.
+
+# Unit testing instructions
+
+Unit tests are located in files prefixed with `test_`. Tests can be run by executing `./manage.py test`.
+
+# System testing instructions
+
+Start by running an instance of the web app by first entering the repository and then by entering the following:
+
+`bash $ python manage.py runserver`
+
+Now that the app is running, open an internet browser and enter the address `localhost:8000`
+
+Login to the web app using the following credentials.
+
+Username: SystemTest, Password: systest
