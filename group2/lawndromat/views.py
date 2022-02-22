@@ -12,3 +12,8 @@ def login(request):
 
 def index(request):
     return redirect('login/', permanent=False)
+
+def newrequest(request):
+    # if not request.user.is_authenticated:
+    #     return redirect('login/', permanent=False)
+    return render(request, "newrequest.html")

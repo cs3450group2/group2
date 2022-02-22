@@ -22,4 +22,5 @@ urlpatterns = [
     path('register/', views.register),
     path('login/', views.login),
     path('', views.index),
+    path('request/new/', views.newrequest),
 ]
