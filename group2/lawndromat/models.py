@@ -11,7 +11,7 @@ class User(models.Model):
     email = models.CharField(max_length=50)
     userType = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
-    money = models.IntegerField()
+    money = models.IntegerField(default=0)
 
 
 class Request(models.Model):
