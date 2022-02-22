@@ -1,5 +1,7 @@
 {% extends "template.html" %}
 
+{% load static %}
+
 {% block title %}Register{% endblock %}
 
 {% block content %}
@@ -46,4 +48,6 @@
     <button type="submit" class="btn btn-primary">Register</button>
   </form>
 </div>
+
+<script src="{% static 'js/register.js' %}"></script>
 {% endblock %}
