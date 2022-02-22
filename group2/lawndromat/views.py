@@ -4,5 +4,8 @@ from django.shortcuts import redirect, render
 
 def register(request):
     if request.method == "POST":
-        return redirect('/login', permanent=False)
+        return redirect('/', permanent=False)
     return render(request, "register.html")
+
+def login(request):
+    return render(request, 'login.html')
