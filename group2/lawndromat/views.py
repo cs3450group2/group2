@@ -1,7 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import User, Request
-from django import forms
-import json
 import hashlib
 import os
 # Create your views here.
