@@ -1,17 +1,22 @@
 from statistics import mode
 from django.db import models
 from django.forms import CharField
+from django.contrib.auth.models import User
 
 # Create your models here.
 
     
-class User(models.Model):
+class UserProfile(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    
     userZipCode = models.IntegerField()
+    userName = models.CharField(max_length=100)
     userAddress = models.CharField(max_length=100,default="")
-    userName = models.CharField(max_length=50)
-    email = models.CharField(max_length=50)
     userType = models.CharField(max_length=50)
-    password = models.CharField(max_length=50)
     money = models.IntegerField(default=0)
 
 
