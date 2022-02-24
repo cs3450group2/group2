@@ -22,6 +22,9 @@ def register(request):
     return render(request, "register.html")
 
 def login(request):
+    if request.method == "POST":
+        # Check if user info is valid
+        pass
     return render(request, 'login.html')
 
 def index(request):
