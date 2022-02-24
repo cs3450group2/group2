@@ -15,7 +15,7 @@ class UserProfile(models.Model):
     
     userZipCode = models.IntegerField()
     userName = models.CharField(max_length=100)
-    userAddress = models.CharField(max_length=100,default="")
+    userAddress = models.CharField(max_length=100)
     userType = models.CharField(max_length=50)
     money = models.IntegerField(default=0)
 
