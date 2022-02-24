@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from .models import User, Request
 import hashlib
 import os
@@ -12,8 +12,8 @@ def register(request):
                                        salt,
                                        100000,
                                        dklen=128)
-        user = User.objects.create(userID = 1,
-                                        userZipCode = request.POST["zipcode"],
+        user = User.objects.create(userZipCode = request.POST["zipcode"],
+                                        userAddress = request.POST["address"],
                                         userName = request.POST["name"],
                                         email = request.POST["email"],
                                         userType = request.POST["type"],
