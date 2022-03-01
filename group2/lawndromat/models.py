@@ -1,3 +1,4 @@
+from statistics import mode
 from django.db import models
 from django.forms import CharField
 
@@ -5,8 +6,8 @@ from django.forms import CharField
 
     
 class User(models.Model):
-    userID = models.IntegerField()
     userZipCode = models.IntegerField()
+    userAddress = models.CharField(max_length=100,default="")
     userName = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
     userType = models.CharField(max_length=50)
