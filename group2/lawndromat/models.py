@@ -19,7 +19,7 @@ class Request(models.Model):
     requestID = models.IntegerField()
     requestZip = models.IntegerField()
     customerID = models.IntegerField()
-    date = models.DateTimeField('date published')
+    date = models.DateTimeField()
     timeOfDay = CharField(max_length=50)
     workerID = models.IntegerField()
     complete = models.BooleanField(default=None)
