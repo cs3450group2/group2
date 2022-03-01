@@ -22,7 +22,10 @@ def register(request):
     return render(request, "register.html")
 
 def index(request):
-    return redirect('accounts/login/', permanent=False)
+    if request.user.is_authenticated:
+        return redirect('accounts/profile/', permanent=False)
+    else:
+        return redirect('accounts/login/', permanent=False)
 
 @login_required
 def profile(request):

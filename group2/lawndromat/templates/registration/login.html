@@ -1,43 +1,46 @@
 {% extends "template.html" %}
 
+{% load static %}
+
+{% block title %}Register{% endblock %}
+
 {% block content %}
 
-  {% if form.errors %}
-    <p>The email address and password you entered did not match any in our system. Please try again.</p>
-  {% endif %}
 
-  {% if next %}
-    {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
-    {% else %}
-      <p>Please login to see this page.</p>
+    {% if form.errors %}
+    <div class="alert alert-danger" role="alert">The email address and password you entered did not match any in our system. Please try again.</div>
     {% endif %}
-  {% endif %}
 
-  <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <table>
-      <tr>
-        <td>
-		      <label for="username" class="form-label">Email: </label>
-		</td>
-        <td>{{ form.username }}</td>
-      </tr>
-      <tr>
-        <td>
-			<label for="password" class="form-label">Password: </label>
-		</td>
-        <td>{{ form.password }}</td>
-      </tr>
-    </table>
-    <input type="submit" value="Login" />
-    <input type="hidden" name="next" value="{{ next }}" />
-  </form>
-
-  {# Assumes you setup the password_reset view in your URLconf #}
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+    {% if next %}
+      {% if user.is_authenticated %}
+        <div class="alert alert-warning" role="alert">Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</div>
+      {% else %}
+        <div class="alert alert-info" role="alert">Please login to see this page.</div>
+      {% endif %}
+    {% endif %}
+    <h1 class="mb-3">Welcome to lawndromat services!</h1>
+    
+    <h1 class="mb-4">Login</h1>
+    
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="username" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="username" name="username">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+        <input type="hidden" name="next" value="{{ next }}" />
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
   
-  <p><a href="/register/">Need to create an account?</a></p>
+    <p><a href="/register/">Need to create an account?</a></p>
+
+{# Assumes you setup the password_reset view in your URLconf #}
+  
 
 {% endblock %}
