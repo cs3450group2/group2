@@ -1,30 +1,32 @@
 from django.shortcuts import redirect, render
-from .models import User, Request
-import hashlib
-import os
+from .models import UserProfile, Request
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 def register(request):
     if request.method == "POST":
-        salt = os.urandom(32)
-        hPasword = hashlib.pbkdf2_hmac('sha256',
-                                       request.POST["password"].encode("utf-8"),
-                                       salt,
-                                       100000,
-                                       dklen=128)
-        user = User.objects.create(userZipCode = request.POST["zipcode"],
-                                        userAddress = request.POST["address"],
-                                        userName = request.POST["name"],
-                                        email = request.POST["email"],
-                                        userType = request.POST["type"],
-                                        password = hPasword,
-                                        money=0)
-        user.save()        
+        user1 = User.objects.create_user(username = request.POST["email"],
+                                         email = request.POST["email"],
+                                         password = request.POST["password"])
+        profile = UserProfile(user=user1,
+                              userName = request.POST["name"],
+                              userZipCode = request.POST["zipcode"],
+                              userAddress = request.POST["address"],
+                              userType = request.POST["type"],
+                              money = 0)
+        user1.save()
+        profile.save()
         return redirect('/', permanent=False)
     return render(request, "register.html")
 
-def login(request):
-    return render(request, 'login.html')
-
 def index(request):
-    return redirect('login/', permanent=False)
+    if request.user.is_authenticated:
+        return redirect('accounts/profile/', permanent=False)
+    else:
+        return redirect('accounts/login/', permanent=False)
+
+@login_required
+def profile(request):
+    return render(request, "profile.html")
