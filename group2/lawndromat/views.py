@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, render
 from .models import UserProfile, Request
 from django.contrib.auth.models import User
-import hashlib
-import os
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 def register(request):
@@ -21,11 +21,9 @@ def register(request):
         return redirect('/', permanent=False)
     return render(request, "register.html")
 
-def login(request):
-    if request.method == "POST":
-        # Check if user info is valid
-        pass
-    return render(request, 'login.html')
-
 def index(request):
-    return redirect('login/', permanent=False)
+    return redirect('accounts/login/', permanent=False)
+
+@login_required
+def profile(request):
+    return render(request, "profile.html")
