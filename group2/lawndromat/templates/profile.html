@@ -1,0 +1,9 @@
+{% extends "template.html" %}
+
+{% block content %}
+	{% if user.is_authenticated %}
+		<p>Someday this will be your profile.</p>
+	{% else %}
+		<p>Please login to see this page.</p>
+    {% endif %}
+{% endblock %}
