@@ -27,7 +27,10 @@ def index(request):
     else:
         return redirect('accounts/login/', permanent=False)
 
+@login_required
 def newrequest(request):
+    if request.user.userprofile.userType != "customer":
+        return redirect('accounts/profile/', permanent=False)
     if request.method == "POST":
         req = Request.objects.create(requestZip = request.user.userprofile.userZipCode,
                                      customerID = request.user.id,
@@ -36,8 +39,7 @@ def newrequest(request):
                                      timeOfDay = request.POST['timeofday'],
                                      cost = 10)
         req.save()
-    # if not request.user.is_authenticated:
-    #     return redirect('login/', permanent=False)
+        return redirect('accounts/profile/', permanent=False)
     return render(request, "newrequest.html")
 
 @login_required
