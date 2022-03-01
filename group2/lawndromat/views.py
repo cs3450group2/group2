@@ -30,6 +30,7 @@ def index(request):
 @login_required
 def newrequest(request):
     if request.user.userprofile.userType != "customer":
+        #TODO: perhaps redirect to the view allrequests page
         return redirect('accounts/profile/', permanent=False)
     if request.method == "POST":
         req = Request.objects.create(requestZip = request.user.userprofile.userZipCode,
@@ -39,6 +40,7 @@ def newrequest(request):
                                      timeOfDay = request.POST['timeofday'],
                                      cost = 10)
         req.save()
+        #TODO: perhaps redirect to the view allrequests page
         return redirect('accounts/profile/', permanent=False)
     return render(request, "newrequest.html")
 
