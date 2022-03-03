@@ -1,0 +1,51 @@
+{% extends "template.html" %}
+
+{% load static %}
+
+{% block title %}New Request{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <h1 class="mt-3">Create New Request</h1>
+  <p>Enter the job details and click Submit Job Request.</p>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Service Type</label>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="type" id="lawn" value="lawn" checked>
+        <label class="form-check-label" for="lawn">
+          Mow Lawn
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="type" id="rake" value="rake">
+        <label class="form-check-label" for="rake">
+          Rake Leaves
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="type" id="snow" value="snow">
+        <label class="form-check-label" for="snow">
+          Shovel Snow
+        </label>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label" for="date">Date</label>
+      <input class="form-control" type="date" name="date" id="date" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label" for="timeofday">Time of Day</label>
+      <select class="form-select" name="timeofday" id="timeofday" value="morning">
+        <option value="morning">Morning</option>
+        <option value="afternoon">Afternoon</option>
+        <option value="evening">Evening</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Job Request</button>
+  </form>
+</div>
+
+{% endblock %}
