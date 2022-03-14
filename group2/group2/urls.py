@@ -23,5 +23,6 @@ urlpatterns = [
     path('', views.index),
     path('request/new/', views.newrequest),
     path('accounts/profile/', views.profile),
+    path('accounts/profile/update/', views.profileupdate),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
