@@ -1,0 +1,44 @@
+{% extends "template.html" %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% block title %}Jobs{% endblock %}
+
+{% block content %}
+
+<h1 class="mt-3">Your Jobs</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Service Date</th>
+      <th scope="col">Service Time</th>
+      <th scope="col">Service Type</th>
+      {% if user.userprofile.userType == "customer" %}
+        <th scope="col">Cost</th>
+        <th scope="col">Assigned?</th>
+      {% else %}
+        <th scope="col">Wage</th>
+      {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for request in requests %}
+      <tr>
+        <td>{{request.date}}</td>
+        <td>{{request.timeOfDay}}</td>
+        <td>{{request.type}}</td>
+        {% if user.userprofile.userType == "customer" %}
+        <td>${{request.cost|floatformat:2}}</td>
+        <td>{% if request.workerID is not None %}Yes{% else %}No{% endif %}</td>
+        {% else %}
+        <td>${{request.cost|floatformat:2}}</td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
