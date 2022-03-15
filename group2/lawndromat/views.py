@@ -23,15 +23,15 @@ def register(request):
 
 def index(request):
     if request.user.is_authenticated:
-        return redirect('accounts/profile/', permanent=False)
+        return redirect('/accounts/profile/', permanent=False)
     else:
-        return redirect('accounts/login/', permanent=False)
+        return redirect('/accounts/login/', permanent=False)
 
 @login_required
 def newrequest(request):
     if request.user.userprofile.userType != "customer":
         #TODO: perhaps redirect to the view allrequests page
-        return redirect('/accounts/profile/', permanent=False)
+        return redirect('/request/', permanent=False)
     if request.method == "POST":
         req = Request.objects.create(requestZip = request.user.userprofile.userZipCode,
                                      customerID = request.user.id,
@@ -43,6 +43,16 @@ def newrequest(request):
         #TODO: perhaps redirect to the view allrequests page
         return redirect('/accounts/profile/', permanent=False)
     return render(request, "newrequest.html")
+
+@login_required
+def requests(request):
+    if request.user.userprofile.userType == "customer":
+        requests = Request.objects.filter(customerID=request.user.id).all()
+    else:
+        requests = Request.objects.filter(workerID=request.user.id).all()
+        for r in requests:
+            r.cost = r.cost * 0.95
+    return render(request, 'requests.html', {'requests':requests})
 
 @login_required
 def profile(request):

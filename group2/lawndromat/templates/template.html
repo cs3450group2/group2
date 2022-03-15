@@ -24,10 +24,24 @@
                 <a class="nav-link" href="/accounts/logout/">Log out</a>
               </li>
               {% if user.userprofile.userType == "customer" %}
-                <li class="nav-item">
-                  <a class="nav-link" href="/request/new/">Create new request</a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Jobs
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/request/new/">Create new job request</a></li>
+                    <li><a class="dropdown-item" href="/request/">View my outstanding jobs</a></li>
+                  </ul>
                 </li>
               {% else %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Jobs
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/request/">View my assigned jobs</a></li>
+                  </ul>
+                </li>
               {% endif %}
             {% else %}
               <li class="nav-item">
