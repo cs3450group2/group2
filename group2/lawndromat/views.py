@@ -65,3 +65,11 @@ def profileupdate(request):
         request.user.userprofile.save()
         return redirect('/accounts/profile/', permanent=False)
     return render(request, "profileupdate.html")
+
+@login_required
+def money(request):
+    if request.method == "POST":
+        if request.user.userprofile.userType == "customer":
+            request.user.userprofile.money += float(request.POST["deposit"])
+        request.user.userprofile.save()
+    return render(request, "managemoney.html")

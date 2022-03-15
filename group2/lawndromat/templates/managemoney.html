@@ -1,0 +1,19 @@
+{% extends "template.html" %}
+
+{% block content %}
+	{% if user.is_authenticated %}
+	
+		<p>You currently have ${{ user.userprofile.money }} in your account.
+	  <form method="POST">
+		{% csrf_token %}
+		{% if user.userprofile.userType == "customer" %}
+			<p>Want to add money to your account? Enter the amount to deposit here.</p>
+			<div class="mb-3">
+			<label for="deposit" class="form-label">Deposit:</label>
+			<input type="number" class="form-control" id="deposit" name="deposit">
+			</div>
+		{% endif %}
+	{% else %}
+		<p>Please login to see this page.</p>
+    {% endif %}
+{% endblock %}
