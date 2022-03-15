@@ -48,11 +48,20 @@ def newrequest(request):
 def requests(request):
     if request.user.userprofile.userType == "customer":
         requests = Request.objects.filter(customerID=request.user.id).all()
+        for r in requests:
+            if r.workerID is not None:
+                r.worker = User.objects.get(id=r.workerID)
     else:
         requests = Request.objects.filter(workerID=request.user.id).all()
         for r in requests:
             r.cost = r.cost * 0.95
     return render(request, 'requests.html', {'requests':requests})
+
+@login_required
+def request(request, id):
+    print(id)
+    #TODO: create individual page
+    return render(request, 'profile.html')
 
 @login_required
 def profile(request):
