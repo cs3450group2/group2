@@ -47,3 +47,21 @@ def newrequest(request):
 @login_required
 def profile(request):
     return render(request, "profile.html")
+    
+@login_required
+def profileupdate(request):
+    if request.method == "POST":
+        if request.POST["email"]:
+            request.user.email = request.POST["email"]
+            request.user.username = request.POST["email"]
+        if request.POST["name"]:
+            request.user.userprofile.userName = request.POST["name"]
+        if request.user.userprofile.userType == "customer" and request.POST["address"]:
+            request.user.userprofile.userAddress = request.POST["address"]
+        if request.POST["zipcode"]:
+            request.user.userprofile.userZipCode = request.POST["zipcode"]    
+            
+        request.user.save()
+        request.user.userprofile.save()
+        return redirect('/accounts/profile/', permanent=False)
+    return render(request, "profileupdate.html")
