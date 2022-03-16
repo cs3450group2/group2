@@ -47,7 +47,13 @@ def newrequest(request):
 @login_required
 def profile(request):
     return render(request, "profile.html")
-    
+
+@login_required
+def availability(request):
+    if request.method == "POST":
+       print(request.POST['schedule[]"'])
+    return render(request, "availability.html")    
+
 @login_required
 def profileupdate(request):
     if request.method == "POST":
