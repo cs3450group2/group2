@@ -78,8 +78,11 @@ def profileupdate(request):
 
 @login_required
 def money(request):
-    if request.method == "POST":
-        if request.user.userprofile.userType == "customer":
+    if 'deposit' in request.POST:
+        if request.user.userprofile.userType == "customer" and float(request.POST["deposit"]) > 0:
             request.user.userprofile.money += float(request.POST["deposit"])
-        request.user.userprofile.save()
+    if 'withdraw' in request.POST:
+        if request.user.userprofile.money >= float(request.POST["withdraw"]) and float(request.POST["withdraw"]) > 0:
+            request.user.userprofile.money -= float(request.POST["withdraw"])
+    request.user.userprofile.save()
     return render(request, "managemoney.html")
