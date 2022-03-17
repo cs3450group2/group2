@@ -1,0 +1,35 @@
+{% extends "template.html" %}
+
+{% block content %}
+	{% if user.is_authenticated %}
+		<form method="POST">
+            {% csrf_token %}
+            <label class="form-label">Schedule</label>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="monday morning" name="data" value="2,morning">
+                <label for="monday morning" class="form-check-label" name="monday morning">Monday morning</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="monday afternoon" name="data" value="2,afternoon">
+                <label for="monday afternoon" class="form-check-label" name="monday afternoon">Monday afternoon</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="monday evening" name="data" value="2,evening">
+                <label for="monday evening" class="form-check-label" name="monday evening">Monday evening</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="tuesday morning" name="data" value="3,morning">
+                <label for="tuesday morning" class="form-check-label" name="tuesday morning">Tuesday morning</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="tuesday afternoon" name="data" value="3,afternoon">
+                <label for="tuesday afternoon" class="form-check-label" name="tuesday afternoon">Tuesday afternoon</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="tuesday evening" name="data" value="3,evening">
+                <label for="tuesday evening" class="form-check-label" name="tuesday evening">Tuesday evening</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    {% endif %}
+{% endblock %}
