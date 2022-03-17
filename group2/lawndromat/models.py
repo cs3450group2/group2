@@ -18,7 +18,10 @@ class UserProfile(models.Model):
     userAddress = models.CharField(max_length=100)
     userType = models.CharField(max_length=50)
     money = models.FloatField(default=0)
-    availablity = models.CharField(max_length=200, null=True)
+    availability = models.CharField(max_length=200, default="")
+
+    def __str__(self):
+        return self.userName
 
 
 class Request(models.Model):
