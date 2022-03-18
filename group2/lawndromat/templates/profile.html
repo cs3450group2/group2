@@ -2,7 +2,9 @@
 
 {% block content %}
 	{% if user.is_authenticated %}
-		<p>Someday this will be your profile.</p>
+		<p>Hello, {{ user.userprofile.userName }}! Someday this will be your profile.</p>
+		
+		<p> Need to update your profile? <a href="/accounts/profile/update/">Go here.</a></p>
 	{% else %}
 		<p>Please login to see this page.</p>
     {% endif %}
