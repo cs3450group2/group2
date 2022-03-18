@@ -24,7 +24,7 @@ def register(request):
 
 def index(request):
     if request.user.is_authenticated:
-        return redirect('/accounts/profile/', permanent=False)
+        return redirect('/request/', permanent=False)
     else:
         return redirect('/accounts/login/', permanent=False)
 
@@ -42,21 +42,54 @@ def newrequest(request):
                                      cost = 10)
         req.save()
         #TODO: perhaps redirect to the view allrequests page
-        return redirect('/accounts/profile/', permanent=False)
+        return redirect('/request/', permanent=False)
     return render(request, "newrequest.html")
 
 @login_required
 def requests(request):
     if request.user.userprofile.userType == "customer":
-        requests = Request.objects.filter(customerID=request.user.id).all()
+        requests = Request.objects.filter(customerID=request.user.id, complete=False).all()
         for r in requests:
             if r.workerID is not None:
                 r.worker = User.objects.get(id=r.workerID)
     else:
-        requests = Request.objects.filter(workerID=request.user.id).all()
+        requests = Request.objects.filter(workerID=request.user.id, complete=False).all()
         for r in requests:
+            r.customer = User.objects.get(id=r.customerID)
             r.cost = r.cost * 0.95
-    return render(request, 'requests.html', {'requests':requests})
+    for r in requests:
+        if r.type == "lawn":
+            r.typeFormatted = "Lawn Mowing"
+        elif r.type == "rake":
+            r.typeFormatted = "Leaf Raking"
+        else:
+            r.typeFormatted = "Snow Shoveling"
+        
+        r.timeOfDayFormatted = r.timeOfDay.capitalize()
+    return render(request, 'requests.html', {'requests':requests, 'title':'My Jobs'})
+
+@login_required
+def pastRequests(request):
+    if request.user.userprofile.userType == "customer":
+        requests = Request.objects.filter(customerID=request.user.id, complete=True).all()
+        for r in requests:
+            if r.workerID is not None:
+                r.worker = User.objects.get(id=r.workerID)
+    else:
+        requests = Request.objects.filter(workerID=request.user.id, complete=True).all()
+        for r in requests:
+            r.customer = User.objects.get(id=r.customerID)
+            r.cost = r.cost * 0.95
+    for r in requests:
+        if r.type == "lawn":
+            r.typeFormatted = "Lawn Mowing"
+        elif r.type == "rake":
+            r.typeFormatted = "Leaf Raking"
+        else:
+            r.typeFormatted = "Snow Shoveling"
+        
+        r.timeOfDayFormatted = r.timeOfDay.capitalize()
+    return render(request, 'requests.html', {'requests':requests, 'title':'Completed Jobs'})
 
 @login_required
 def request(request, id):
@@ -76,7 +109,7 @@ def availability(request):
             schedule += i + ";"
         request.user.userprofile.availability = schedule
         request.user.userprofile.save()
-        return render(request, "profile.html")
+        return redirect('/accounts/profile/', permanent=False)
     return render(request, "availability.html")    
 
 @login_required
