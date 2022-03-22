@@ -96,7 +96,6 @@ def request(request, id):
     print(id)
     #TODO: create individual page
     return render(request, 'profile.html')
-
 @login_required
 def profile(request):
     return render(request, "profile.html")
@@ -123,9 +122,20 @@ def profileupdate(request):
         if request.user.userprofile.userType == "customer" and request.POST["address"]:
             request.user.userprofile.userAddress = request.POST["address"]
         if request.POST["zipcode"]:
-            request.user.userprofile.userZipCode = request.POST["zipcode"]    
+            request.user.userprofile.userZipCode = request.POST["zipcode"]   
             
         request.user.save()
         request.user.userprofile.save()
         return redirect('/accounts/profile/', permanent=False)
     return render(request, "profileupdate.html")
+
+@login_required
+def money(request):
+    if 'deposit' in request.POST:
+        if request.user.userprofile.userType == "customer" and float(request.POST["deposit"]) > 0:
+            request.user.userprofile.money += float(request.POST["deposit"])
+    if 'withdraw' in request.POST:
+        if request.user.userprofile.money >= float(request.POST["withdraw"]) and float(request.POST["withdraw"]) > 0:
+            request.user.userprofile.money -= float(request.POST["withdraw"])
+    request.user.userprofile.save()
+    return render(request, "managemoney.html")

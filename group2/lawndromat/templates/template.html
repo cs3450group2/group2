@@ -31,7 +31,8 @@
                   <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="/request/new/">Create new job request</a></li>
                     <li><a class="dropdown-item" href="/request/">View my outstanding jobs</a></li>
-                    <li><a class="dropdown-item" href="/request/past">View my past jobs</a></li>
+					          <li><a class="dropdown-item" href="/request/past">View my past jobs</a></li>
+
                   </ul>
                 </li>
               {% else %}
@@ -44,6 +45,9 @@
                   </ul>
                 </li>
               {% endif %}
+			  <li class="nav-item">
+                <a class="nav-link" href="/manage/money/">Money</a>
+              </li>
             {% else %}
               <li class="nav-item">
                 <a class="nav-link" href="/accounts/login/">Login</a>
