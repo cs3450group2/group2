@@ -3,25 +3,24 @@
 {% block content %}
 	<body>
 	{% if user.is_authenticated %}
-		<p style="font-size:40px" align="center">Hello, {{ user.userprofile.userName }}!</p>
-		<p style="font-size:40px" align="center">Welcome to our lawncare services!</p>
-		<p style="font-size:40px">ZipCode</p>
+		<h2 align="center">Hello, {{ user.userprofile.userName }}!</p>
+		<h2 align="center">Welcome to Lawndromat!</p>
+		<h2>ZipCode</p>
 		<p>{{ user.userprofile.userZipCode }}</p>
 		{% if user.userprofile.userType == "customer"%}
-			<p stype="background-color:#FF3333" style="font-size:40px">User Address</p>
+			<h2>User Address</p>
 			<p>{{ user.userprofile.userAddress }}</p>
 		{% endif %}
-		<p stype="background-color:#FF3333" style="font-size:40px">Balance</p>
-		<p>{{ user.userprofile.money }}</p>
+		<h2>Balance</p>
+		<p>${{ user.userprofile.money|floatformat:2 }}</p>
 		{% if user.userprofile.userType == "worker"%}
-			<p stype="background-color:#FF3333" style="font-size:40px">Availible</p>
 			<a type="button" href="/accounts/profile/availability/" class="btn btn-primary">Update Availability</a>
 		{% endif %}
 		<br>
 		<br>
 		<a type="button" href="/accounts/profile/update/" class="btn btn-primary">Update User Info</a>
 	{% else %}
-		<p stype="background-color:#FF3333" style="font-size:40px" align="center">Please login to see this page.</p>
+		<h2 align="center">Please login to see this page.</p>
     {% endif %}
 	</body>
 {% endblock %}
