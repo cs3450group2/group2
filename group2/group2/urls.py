@@ -25,4 +25,5 @@ urlpatterns = [
     path('accounts/profile/', views.profile),
     path('accounts/profile/update/', views.profileupdate),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/profile/availability/', views.availability),
 ]

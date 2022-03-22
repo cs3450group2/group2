@@ -1,3 +1,4 @@
+from cProfile import Profile
 from django.shortcuts import redirect, render
 from .models import UserProfile, Request
 from django.contrib.auth.models import User
@@ -47,7 +48,18 @@ def newrequest(request):
 @login_required
 def profile(request):
     return render(request, "profile.html")
-    
+
+@login_required
+def availability(request):
+    if request.method == "POST":
+        schedule = ""
+        for i in request.POST.getlist("data"):
+            schedule += i + ";"
+        request.user.userprofile.availability = schedule
+        request.user.userprofile.save()
+        return render(request, "profile.html")
+    return render(request, "availability.html")    
+
 @login_required
 def profileupdate(request):
     if request.method == "POST":
