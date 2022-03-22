@@ -25,7 +25,7 @@ def index(request):
     if request.user.is_authenticated:
         return redirect('/accounts/profile/', permanent=False)
     else:
-        return redirect('/accounts/login/', permanent=False)
+        return redirect('/request/', permanent=False)
 
 @login_required
 def newrequest(request):
@@ -47,13 +47,54 @@ def newrequest(request):
 @login_required
 def requests(request):
     if request.user.userprofile.userType == "customer":
-        requests = Request.objects.filter(customerID=request.user.id).all()
-    else:
-        requests = Request.objects.filter(workerID=request.user.id).all()
+       requests = Request.objects.filter(customerID=request.user.id, complete=False).all()
         for r in requests:
+            if r.workerID is not None:
+                r.worker = User.objects.get(id=r.workerID)
+    else:
+        requests = Request.objects.filter(workerID=request.user.id, complete=False).all()
+        for r in requests:
+            r.customer = User.objects.get(id=r.customerID)
             r.cost = r.cost * 0.95
-    return render(request, 'requests.html', {'requests':requests})
+    for r in requests:
+        if r.type == "lawn":
+            r.typeFormatted = "Lawn Mowing"
+        elif r.type == "rake":
+            r.typeFormatted = "Leaf Raking"
+        else:
+            r.typeFormatted = "Snow Shoveling"
+        
+        r.timeOfDayFormatted = r.timeOfDay.capitalize()
+    return render(request, 'requests.html', {'requests':requests, 'title':'My Jobs'})
 
+@login_required
+def pastRequests(request):
+    if request.user.userprofile.userType == "customer":
+        requests = Request.objects.filter(customerID=request.user.id, complete=True).all()
+        for r in requests:
+            if r.workerID is not None:
+                r.worker = User.objects.get(id=r.workerID)
+    else:
+        requests = Request.objects.filter(workerID=request.user.id, complete=True).all()
+        for r in requests:
+            r.customer = User.objects.get(id=r.customerID)
+            r.cost = r.cost * 0.95
+    for r in requests:
+        if r.type == "lawn":
+            r.typeFormatted = "Lawn Mowing"
+        elif r.type == "rake":
+            r.typeFormatted = "Leaf Raking"
+        else:
+            r.typeFormatted = "Snow Shoveling"
+        
+        r.timeOfDayFormatted = r.timeOfDay.capitalize()
+    return render(request, 'requests.html', {'requests':requests, 'title':'Completed Jobs'})
+
+@login_required
+def request(request, id):
+    print(id)
+    #TODO: create individual page
+    return render(request, 'profile.html')
 @login_required
 def profile(request):
     return render(request, "profile.html")
@@ -69,7 +110,7 @@ def profileupdate(request):
         if request.user.userprofile.userType == "customer" and request.POST["address"]:
             request.user.userprofile.userAddress = request.POST["address"]
         if request.POST["zipcode"]:
-            request.user.userprofile.userZipCode = request.POST["zipcode"]    
+            request.user.userprofile.userZipCode = request.POST["zipcode"]   
             
         request.user.save()
         request.user.userprofile.save()
