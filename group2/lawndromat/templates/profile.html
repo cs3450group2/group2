@@ -5,9 +5,14 @@
 	{% if user.is_authenticated %}
 		<p stype="background-color:#FF3333" style="font-size:40px" align="center">Hello, {{ user.userprofile.userName }}!</p>
 		<p stype="background-color:#FF3333" style="font-size:40px" align="center">Welcome to our lawncare services!</p>
+		<p stype="background-color:#FF3333" style="font-size:40px">ZipCode</p>
 		<p>{{ user.userprofile.userZipCode }}</p>
+		<p stype="background-color:#FF3333" style="font-size:40px">User Address</p>
 		<p>{{ user.userprofile.userAddress }}</p>
+		<p stype="background-color:#FF3333" style="font-size:40px">Balance</p>
 		<p>{{ user.userprofile.money }}</p>
+		<p stype="background-color:#FF3333" style="font-size:40px">Availible</p>
+		<p>{{ user.userprofile.availibility }}</p>
 		{% if user.userprofile.userType == "worker"%}
 			<a type="button" href="/accounts/profile/availability/" class="btn btn-primary">Update Availability</a>
 		{% endif %}
