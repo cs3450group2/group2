@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', views.register),
     path('', views.index),
-    path('request/', views.requests),    
+    path('request/', views.requests),
     path('request/past', views.pastRequests),
     path('request/<int:id>/', views.request, name='request'),
     path('request/new/', views.newrequest),
@@ -29,4 +29,5 @@ urlpatterns = [
     path('accounts/profile/update/', views.profileupdate),
     path('manage/money/', views.money),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/profile/availability/', views.availability),
 ]

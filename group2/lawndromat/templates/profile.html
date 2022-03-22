@@ -1,11 +1,26 @@
 {% extends "template.html" %}
 
 {% block content %}
+	<body>
 	{% if user.is_authenticated %}
-		<p>Hello, {{ user.userprofile.userName }}! Someday this will be your profile.</p>
-		
-		<p> Need to update your profile? <a href="/accounts/profile/update/">Go here.</a></p>
+		<h2 align="center">Hello, {{ user.userprofile.userName }}!</h2>
+		<h2 align="center">Welcome to Lawndromat!</h2>
+		<h2>ZipCode</h2>
+		<p>{{ user.userprofile.userZipCode }}</p>
+		{% if user.userprofile.userType == "customer"%}
+			<h2>User Address</h2>
+			<p>{{ user.userprofile.userAddress }}</p>
+		{% endif %}
+		<h2>Balance</h2>
+		<p>${{ user.userprofile.money|floatformat:2 }}</p>
+		{% if user.userprofile.userType == "worker"%}
+			<a type="button" href="/accounts/profile/availability/" class="btn btn-primary">Update Availability</a>
+		{% endif %}
+		<br>
+		<br>
+		<a type="button" href="/accounts/profile/update/" class="btn btn-primary">Update User Info</a>
 	{% else %}
-		<p>Please login to see this page.</p>
+		<h2 align="center">Please login to see this page.</h2>
     {% endif %}
+	</body>
 {% endblock %}
