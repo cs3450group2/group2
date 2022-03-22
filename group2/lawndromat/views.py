@@ -23,9 +23,9 @@ def register(request):
 
 def index(request):
     if request.user.is_authenticated:
-        return redirect('/accounts/profile/', permanent=False)
-    else:
         return redirect('/request/', permanent=False)
+    else:
+        return redirect('/accounts/login/', permanent=False)
 
 @login_required
 def newrequest(request):
