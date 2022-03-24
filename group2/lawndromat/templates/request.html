@@ -1,0 +1,48 @@
+{% extends "template.html" %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% block title %}{{request.date|date:'D d M Y'}}{% endblock %}
+
+{% block content %}
+
+<h2 class="mt-3">{{request.typeFormatted}} on the {{request.timeOfDayFormatted}} of {{request.date|date:'D d M Y'}} </h2>
+
+{% if user.userprofile.userType == "customer" %}
+  <p>Cost: ${{request.cost|floatformat:2}}</p> 
+  {% if not request.complete %}
+    {% if request.workerID is None %}
+      <p>This job has not been accepted by a worker yet. Please check back later.</p>
+    {% else %}
+      <p>This job has been accepted by {{request.worker.userprofile.userName}}.</p>
+    {% endif %}
+    <a href="/request/">Back to Outstanding Jobs</a>
+  {% else %}
+    <p>Job completed by {{request.worker.userprofile.userName}}.</p>
+    <p> -- LEAVE FEEDBACK -- </p>
+    <a href="/request/past/">Back to Completed Jobs</a>
+  {% endif %}
+  
+
+{% else %}
+  <p>Customer Name: {{request.customer.userprofile.userName}}</p>
+  <p>Address: {{request.customer.userprofile.userAddress}}</p>
+  <p>Wage: ${{request.cost|floatformat:2}}</p>
+  {% if request.workerID is None %}
+    <p> -- ACCEPT -- </p>
+    <a href="/request/open/">Back to Available Jobs</a>
+  {% else %}
+    {% if not request.complete %}
+      <p> -- MARK COMPLETE -- </p>
+      <a href="/request/">Back to Assigned Jobs</a>
+    {% else %}
+      <p>Job is complete</p>
+      <p>Feedback::::: </p>
+      <a href="/request/past/">Back to Completed Jobs</a>
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% endblock %}
