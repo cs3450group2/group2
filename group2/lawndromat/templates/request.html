@@ -31,12 +31,24 @@
   <p>Address: {{request.customer.userprofile.userAddress}}</p>
   <p>Wage: ${{request.cost|floatformat:2}}</p>
   {% if request.workerID is None %}
-    <p> -- ACCEPT -- </p>
-    <a href="/request/open/">Back to Available Jobs</a>
+    <form method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="accept">
+      <button type="submit" class="btn btn-primary">Accept Job</button>
+    </form>
+    <p class="mt-3">
+      <a href="/request/open/">Back to Available Jobs</a>
+    </p>
   {% else %}
     {% if not request.complete %}
-      <p> -- MARK COMPLETE -- </p>
-      <a href="/request/">Back to Assigned Jobs</a>
+      <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="complete">
+        <button type="submit" class="btn btn-success">Complete Job</button>
+      </form>
+      <p class="mt-3">
+        <a href="/request/">Back to Assigned Jobs</a>
+      </p>
     {% else %}
       <p>Job is complete</p>
       <p>Feedback::::: </p>

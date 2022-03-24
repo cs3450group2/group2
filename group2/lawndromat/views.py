@@ -114,6 +114,24 @@ def openRequests(request):
 
 @login_required
 def request(request, id):
+    if request.method == "POST":
+        if request.POST['action'] == "accept":
+            r = Request.objects.get(id=id)
+            r.workerID = request.user.id
+            r.save()
+            return redirect('/request/', permanent=False)
+        elif request.POST['action'] == "complete":
+            r = Request.objects.get(id=id)
+            #TODO: Transfer Money
+            r.complete = True
+            r.save()
+            return redirect('/request/past', permanent=False)
+        else:
+            r = Request.objects.get(id=id)
+            r.feedBack = "test"
+            r.thumbsUp = True
+            r.save()
+            return redirect('/request/past', permanent=False)
     if request.user.userprofile.userType == "customer":
         r = Request.objects.get(id=id, customerID=request.user.id)
         if r.workerID is not None:
