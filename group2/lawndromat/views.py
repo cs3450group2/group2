@@ -26,7 +26,7 @@ def index(request):
     if request.user.is_authenticated:
         return redirect('/request/', permanent=False)
     else:
-        return redirect('/accounts/login/', permanent=False)
+        return render(request, 'homepage.html')
 
 @login_required
 def newrequest(request):
