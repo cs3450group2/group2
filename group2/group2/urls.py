@@ -25,6 +25,7 @@ urlpatterns = [
     path('request/past', views.pastRequests),
     path('request/<int:id>/', views.request, name='request'),
     path('request/new/', views.newrequest),
+    path('request/open/', views.openRequests),
     path('accounts/profile/', views.profile),
     path('accounts/profile/update/', views.profileupdate),
     path('manage/money/', views.money),

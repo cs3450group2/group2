@@ -2,7 +2,7 @@
 
 {% block content %}
 	{% if user.is_authenticated %}
-		<p stype="background-color:#FF3333" style="font-size:40px">Enter any new information here:</p>
+		<p style="font-size:40px">Enter any new information here:</p>
 		
   <form method="POST">
     {% csrf_token %}

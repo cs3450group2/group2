@@ -22,6 +22,7 @@
       {% else %}
         <th scope="col">Wage</th>
         <th scope="col">Address</th>
+        <th scope="col">Customer Name</th>
       {% endif %}
       <th scope="col">Actions</th>
     </tr>
@@ -38,6 +39,7 @@
         {% else %}
         <td>${{request.cost|floatformat:2}}</td>
         <td>{{request.customer.userprofile.userAddress}}</td>
+        <td>{{request.customer.userprofile.userName}}</td>
         {% endif %}
         <td><a href="{% url 'request' request.id %}">View</a></td>
       </tr>
