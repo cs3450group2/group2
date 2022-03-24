@@ -5,8 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-def homepage(request):
-    return render(request, "homepage.html")
+
 def register(request):
     if request.method == "POST":
         user1 = User.objects.create_user(username = request.POST["email"],
@@ -27,7 +26,7 @@ def index(request):
     if request.user.is_authenticated:
         return redirect('/request/', permanent=False)
     else:
-        return redirect('/homepage/', permanent=False)
+        return render(request, 'homepage.html')
 
 @login_required
 def newrequest(request):

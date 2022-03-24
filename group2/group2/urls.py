@@ -21,7 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', views.register),
     path('', views.index),
-    path('homepage/', views.homepage),
     path('request/', views.requests),
     path('request/past', views.pastRequests),
     path('request/<int:id>/', views.request, name='request'),
