@@ -147,4 +147,4 @@ def userlist(request):
         return redirect('/', permanent=False)
     else:
         users = User.objects.all()
-        return render(request, "userlist.html")
+        return render(request, "userlist.html", {'users':users})
