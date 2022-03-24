@@ -16,7 +16,7 @@
       <th scope="col">Service Date</th>
       <th scope="col">Service Time</th>
       <th scope="col">Service Type</th>
-      {% if user.userprofile.userType == "customer" %}
+      {% if user.userprofile.userType == "customer" or "owner" %}
         <th scope="col">Cost</th>
         <th scope="col">Worker Name</th>
       {% else %}
@@ -32,7 +32,7 @@
         <td>{{request.date|date:'D d M Y'}}</td>
         <td>{{request.timeOfDayFormatted}}</td>
         <td>{{request.typeFormatted}}</td>
-        {% if user.userprofile.userType == "customer" %}
+        {% if user.userprofile.userType == "customer" or "owner" %}
         <td>${{request.cost|floatformat:2}}</td>
         <td>{% if request.workerID is not None %}{{request.worker.userprofile.userName}}{% else %}-{% endif %}</td>
         {% else %}

@@ -1,0 +1,32 @@
+{% extends "template.html" %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% block content %}
+
+<h1 class="mt-3">Users</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">User Type</th>
+      <th scope="col">Email Address</th>
+      <th scope="col">Zip Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+      <tr>
+        <td>{{user.userprofile.userName}}</td>
+        <td>{{user.userprofile.userType}}</td>
+        <td>{{user.email}}</td>
+        <td>${{user.userprofile.userZipCode}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

@@ -30,7 +30,7 @@ def index(request):
 
 @login_required
 def newrequest(request):
-    if request.user.userprofile.userType != "customer":
+    if request.user.userprofile.userType == "worker":
         #TODO: perhaps redirect to the view allrequests page
         return redirect('/request/', permanent=False)
     if request.method == "POST":
@@ -47,7 +47,7 @@ def newrequest(request):
 
 @login_required
 def requests(request):
-    if request.user.userprofile.userType == "customer":
+    if request.user.userprofile.userType == "customer" or "owner":
         requests = Request.objects.filter(customerID=request.user.id, complete=False).all()
         for r in requests:
             if r.workerID is not None:
@@ -70,7 +70,7 @@ def requests(request):
 
 @login_required
 def pastRequests(request):
-    if request.user.userprofile.userType == "customer":
+    if request.user.userprofile.userType == "customer" or "owner":
         requests = Request.objects.filter(customerID=request.user.id, complete=True).all()
         for r in requests:
             if r.workerID is not None:
@@ -96,6 +96,7 @@ def request(request, id):
     print(id)
     #TODO: create individual page
     return render(request, 'profile.html')
+    
 @login_required
 def profile(request):
     return render(request, "profile.html")
@@ -119,7 +120,7 @@ def profileupdate(request):
             request.user.username = request.POST["email"]
         if request.POST["name"]:
             request.user.userprofile.userName = request.POST["name"]
-        if request.user.userprofile.userType == "customer" and request.POST["address"]:
+        if request.user.userprofile.userType == "customer" or "owner" and request.POST["address"]:
             request.user.userprofile.userAddress = request.POST["address"]
         if request.POST["zipcode"]:
             request.user.userprofile.userZipCode = request.POST["zipcode"]   
@@ -132,10 +133,18 @@ def profileupdate(request):
 @login_required
 def money(request):
     if 'deposit' in request.POST:
-        if request.user.userprofile.userType == "customer" and float(request.POST["deposit"]) > 0:
+        if (request.user.userprofile.userType == "customer" or "owner") and (float(request.POST["deposit"])) > 0:
             request.user.userprofile.money += float(request.POST["deposit"])
     if 'withdraw' in request.POST:
         if request.user.userprofile.money >= float(request.POST["withdraw"]) and float(request.POST["withdraw"]) > 0:
             request.user.userprofile.money -= float(request.POST["withdraw"])
     request.user.userprofile.save()
     return render(request, "managemoney.html")
+    
+@login_required
+def userlist(request):
+    if request.user.userprofile.userType != "owner":
+        return redirect('/', permanent=False)
+    else:
+        users = User.objects.all()
+        return render(request, "userlist.html")

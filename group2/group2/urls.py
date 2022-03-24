@@ -28,6 +28,7 @@ urlpatterns = [
     path('accounts/profile/', views.profile),
     path('accounts/profile/update/', views.profileupdate),
     path('manage/money/', views.money),
+    path('users/list/', views.userlist),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/profile/availability/', views.availability),
 ]

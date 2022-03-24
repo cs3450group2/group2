@@ -6,7 +6,7 @@
 	{% if user.is_authenticated %}
 	
 		<p>You currently have ${{ user.userprofile.money|floatformat:2 }} in your account.
-		{% if user.userprofile.userType == "customer" %}
+		{% if user.userprofile.userType == "customer" or "owner" %}
 		<form method="POST">
 		{% csrf_token %}
 			<p>Want to add money to your account? Enter the amount to deposit here.</p>
