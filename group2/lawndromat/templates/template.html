@@ -27,8 +27,14 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             {% if user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="/accounts/logout/">Log out</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Profile
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/accounts/profile/">Profile Details</a></li>
+                  <li><a class="dropdown-item" href="/accounts/logout/">Logout</a></li>
+                </ul>
               </li>
               {% if user.userprofile.userType == "customer" %}
                 <li class="nav-item dropdown">
@@ -38,7 +44,8 @@
                   <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="/request/new/">Create new job request</a></li>
                     <li><a class="dropdown-item" href="/request/">View my outstanding jobs</a></li>
-                    <li><a class="dropdown-item" href="/request/past">View my past jobs</a></li>
+					          <li><a class="dropdown-item" href="/request/past">View my past jobs</a></li>
+
                   </ul>
                 </li>
               {% else %}
@@ -48,9 +55,14 @@
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="/request/">View my assigned jobs</a></li>
+                    <li><a class="dropdown-item" href="/request/past">View my past jobs</a></li>
+                    <li><a class="dropdown-item" href="/request/open">View available jobs</a></li>
                   </ul>
                 </li>
               {% endif %}
+			  <li class="nav-item">
+                <a class="nav-link" href="/manage/money/">Money</a>
+              </li>
             {% else %}
               <li class="nav-item">
                 <a class="nav-link" href="/accounts/login/">Login</a>

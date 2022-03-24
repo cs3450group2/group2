@@ -1,0 +1,30 @@
+{% extends "template.html" %}
+
+{% load humanize %}
+
+{% block content %}
+	{% if user.is_authenticated %}
+	
+		<p>You currently have ${{ user.userprofile.money|floatformat:2 }} in your account.
+		{% if user.userprofile.userType == "customer" %}
+		<form method="POST">
+		{% csrf_token %}
+			<p>Want to add money to your account? Enter the amount to deposit here.</p>
+			<div class="mb-3">
+			<label for="deposit" class="form-label">Deposit:</label>
+			<input type="number" step="0.01" class="form-control" id="deposit" name="deposit">
+			</div>
+			</form>
+		{% endif %}
+		<form method="POST">
+		{% csrf_token %}
+			<p>Want to withdraw money from your account? Enter the amount to withdraw here.</p>
+			<div class="mb-3">
+			<label for="withdraw" class="form-label">Withdraw:</label>
+			<input type="number" step="0.01" class="form-control" id="withdraw" name="withdraw">
+			</div>
+		</form>
+	{% else %}
+		<p>Please login to see this page.</p>
+    {% endif %}
+{% endblock %}
