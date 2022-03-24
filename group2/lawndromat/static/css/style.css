@@ -3,6 +3,11 @@ div.imagediv {
   background-size: cover;
   color: white;
 }
-div.floatingbox{
+div.floatingbox {
   color: grey;
+}
+div.alignbutton {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }
