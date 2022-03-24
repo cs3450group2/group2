@@ -31,7 +31,6 @@ def index(request):
 @login_required
 def newrequest(request):
     if request.user.userprofile.userType != "customer":
-        #TODO: perhaps redirect to the view allrequests page
         return redirect('/request/', permanent=False)
     if request.method == "POST":
         req = Request.objects.create(requestZip = request.user.userprofile.userZipCode,
@@ -41,7 +40,6 @@ def newrequest(request):
                                      timeOfDay = request.POST['timeofday'],
                                      cost = 10)
         req.save()
-        #TODO: perhaps redirect to the view allrequests page
         return redirect('/request/', permanent=False)
     return render(request, "newrequest.html")
 
@@ -92,6 +90,29 @@ def pastRequests(request):
     return render(request, 'requests.html', {'requests':requests, 'title':'Completed Jobs'})
 
 @login_required
+def openRequests(request):
+    if request.user.userprofile.userType == "customer":
+        return redirect('/request/', permanent=False)
+    if request.user.userprofile.availability == '':
+        return render(request, 'requests.html', {'requests': [], 'title': 'Available Jobs'})
+    availabilities = request.user.userprofile.availability.split(';')
+    requests = []
+    for availability in availabilities:
+        day, timeOfDay = availability.split(',')
+        requests += Request.objects.filter(requestZip=request.user.userprofile.userZipCode, timeOfDay=timeOfDay, date__week_day=int(day), workerID=None).all()
+    for r in requests:
+        r.customer = User.objects.get(id=r.customerID)
+        r.cost = r.cost * 0.95
+        if r.type == "lawn":
+            r.typeFormatted = "Lawn Mowing"
+        elif r.type == "rake":
+            r.typeFormatted = "Leaf Raking"
+        else:
+            r.typeFormatted = "Snow Shoveling"
+        r.timeOfDayFormatted = r.timeOfDay.capitalize()
+    return render(request, 'requests.html', {'requests': requests, 'title': 'Available Jobs'})
+
+@login_required
 def request(request, id):
     print(id)
     #TODO: create individual page
@@ -103,9 +124,7 @@ def profile(request):
 @login_required
 def availability(request):
     if request.method == "POST":
-        schedule = ""
-        for i in request.POST.getlist("data"):
-            schedule += i + ";"
+        schedule = ";".join(request.POST.getlist("data"))
         request.user.userprofile.availability = schedule
         request.user.userprofile.save()
         return redirect('/accounts/profile/', permanent=False)
