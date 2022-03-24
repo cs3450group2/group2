@@ -114,9 +114,47 @@ def openRequests(request):
 
 @login_required
 def request(request, id):
-    print(id)
-    #TODO: create individual page
-    return render(request, 'profile.html')
+    if request.method == "POST":
+        if request.POST['action'] == "accept":
+            r = Request.objects.get(id=id)
+            r.workerID = request.user.id
+            r.save()
+            return redirect('/request/', permanent=False)
+        elif request.POST['action'] == "complete":
+            r = Request.objects.get(id=id)
+            #TODO: Transfer Money
+            r.complete = True
+            r.save()
+            return redirect('/request/past', permanent=False)
+        else:
+            r = Request.objects.get(id=id)
+            r.feedBack = "test"
+            r.thumbsUp = True
+            r.save()
+            return redirect('/request/past', permanent=False)
+    if request.user.userprofile.userType == "customer":
+        r = Request.objects.get(id=id, customerID=request.user.id)
+        if r.workerID is not None:
+            r.worker = User.objects.get(id=r.workerID)
+    elif request.user.userprofile.userType == "worker":
+        r = Request.objects.get(id=id)
+        if r.workerID is not None and r.workerID != request.user.id:
+            return redirect('/request/', permanent=False)
+        r.customer = User.objects.get(id=r.customerID)
+        r.cost = r.cost * 0.95
+    else:
+        r = Request.objects.get(id=id)
+    
+    if r.type == "lawn":
+        r.typeFormatted = "Lawn Mowing"
+    elif r.type == "rake":
+        r.typeFormatted = "Leaf Raking"
+    else:
+        r.typeFormatted = "Snow Shoveling"
+    
+    r.timeOfDayFormatted = r.timeOfDay.capitalize()
+
+    return render(request, 'request.html', {'request': r})
 @login_required
 def profile(request):
     return render(request, "profile.html")
