@@ -3,7 +3,7 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-	<body>
+	<div class="col-md-7 text-lg-start">
 	{% if user.is_authenticated %}
 		<h2 align="center">Hello, {{ user.userprofile.userName }}!</h2>
 		<h2 align="center">Welcome to Lawndromat!</h2>
@@ -16,7 +16,27 @@
 		<h2>Balance</h2>
 		<p>${{ user.userprofile.money|floatformat:2 }}</p>
 		{% if user.userprofile.userType == "worker"%}
-			<a type="button" href="/accounts/profile/availability/" class="btn btn-primary">Update Availability</a>
+	</div>
+		<div class="col-lg-7  rounded-3 bg-light row">
+			<div class="col-md-10 mx-auto col-lg-5">
+				<h2 class="mb-3">Current availability</h2>
+				<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Day</th>
+						<th scope="col">Time</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+				</table>
+				<a type="button" href="/accounts/profile/availability/" class="btn btn-primary">Update Availability</a>
+			</div>
+		</div>
+	</div>
+
+			
 		{% endif %}
 		<br>
 		<br>
@@ -24,5 +44,5 @@
 	{% else %}
 		<h2 align="center">Please login to see this page.</h2>
     {% endif %}
-	</body>
+
 {% endblock %}
