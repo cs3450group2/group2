@@ -159,11 +159,12 @@ def request(request, id):
 def profile(request):
     availabilities = request.user.userprofile.availability.split(';')
     aval = []
+    print(availabilities)
     for availability in availabilities:
-
         timeOfDay = availability.split(',')
         if timeOfDay[0] == '2':
-            print(timeOfDay[0])
+            aval.append(["Monday",timeOfDay[1]])
+        elif timeOfDay[0] == '3':
             aval.append(["Tuesday",timeOfDay[1]])
        
     #     users += request.user.objects.filter(timeOfDay=timeOfDay).all()
