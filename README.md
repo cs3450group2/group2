@@ -103,7 +103,8 @@ Type `localhost:8000` in a browser to see the app running.
 # Unit testing instructions
 
 
-Unit tests are located in files prefixed with `test_`. Tests can be run by executing `./manage.py test`.
+Unit tests are contained in the tests.py file in the repository. These can be run by entering the repository then typing the following:
+`bash $ python manage.py test`
 
 
 # System testing instructions
@@ -120,7 +121,3 @@ Login to the web app using the following credentials.
 
 
 Username: SystemTest, Password: systest
-
-
-Unit tests are contained in the tests.py file in the repository. These can be run by entering the repository then typing the following:
-`bash $ python manage.py test`
