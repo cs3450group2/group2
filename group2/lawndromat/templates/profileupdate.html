@@ -1,5 +1,7 @@
 {% extends "template.html" %}
 
+{% block title %}Update Profile{% endblock %}
+
 {% block content %}
 	{% if user.is_authenticated %}
 		<p style="font-size:40px">Enter any new information here:</p>
@@ -15,7 +17,7 @@
       <input type="text" class="form-control" id="name" name="name" placeholder="{{ user.userprofile.userName }}">
     </div>
 
-	{% if user.userprofile.userType == "customer" %}
+	{% if user.userprofile.userType == "customer" or "owner" %}
 		<div class="mb-3" id="addressFormItem">
 		  <label for="address" class="form-label">Address</label>
 		  <input type="text" class="form-control" id="address" name="address" placeholder="{{ user.userprofile.userAddress }}">

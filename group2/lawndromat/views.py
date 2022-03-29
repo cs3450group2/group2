@@ -26,11 +26,11 @@ def index(request):
     if request.user.is_authenticated:
         return redirect('/request/', permanent=False)
     else:
-        return redirect('/accounts/login/', permanent=False)
+        return render(request, 'homepage.html')
 
 @login_required
 def newrequest(request):
-    if request.user.userprofile.userType != "customer":
+    if request.user.userprofile.userType == "worker":
         return redirect('/request/', permanent=False)
     if request.method == "POST":
         req = Request.objects.create(requestZip = request.user.userprofile.userZipCode,
@@ -45,7 +45,7 @@ def newrequest(request):
 
 @login_required
 def requests(request):
-    if request.user.userprofile.userType == "customer":
+    if request.user.userprofile.userType == "customer" or "owner":
         requests = Request.objects.filter(customerID=request.user.id, complete=False).all()
         for r in requests:
             if r.workerID is not None:
@@ -68,7 +68,7 @@ def requests(request):
 
 @login_required
 def pastRequests(request):
-    if request.user.userprofile.userType == "customer":
+    if request.user.userprofile.userType == "customer" or "owner":
         requests = Request.objects.filter(customerID=request.user.id, complete=True).all()
         for r in requests:
             if r.workerID is not None:
@@ -114,9 +114,48 @@ def openRequests(request):
 
 @login_required
 def request(request, id):
-    print(id)
-    #TODO: create individual page
-    return render(request, 'profile.html')
+    if request.method == "POST":
+        if request.POST['action'] == "accept":
+            r = Request.objects.get(id=id)
+            r.workerID = request.user.id
+            r.save()
+            return redirect('/request/', permanent=False)
+        elif request.POST['action'] == "complete":
+            r = Request.objects.get(id=id)
+            #TODO: Transfer Money
+            r.complete = True
+            r.save()
+            return redirect('/request/past', permanent=False)
+        else:
+            r = Request.objects.get(id=id)
+            r.feedBack = "test"
+            r.thumbsUp = True
+            r.save()
+            return redirect('/request/past', permanent=False)
+    if request.user.userprofile.userType == "customer":
+        r = Request.objects.get(id=id, customerID=request.user.id)
+        if r.workerID is not None:
+            r.worker = User.objects.get(id=r.workerID)
+    elif request.user.userprofile.userType == "worker":
+        r = Request.objects.get(id=id)
+        if r.workerID is not None and r.workerID != request.user.id:
+            return redirect('/request/', permanent=False)
+        r.customer = User.objects.get(id=r.customerID)
+        r.cost = r.cost * 0.95
+    else:
+        r = Request.objects.get(id=id)
+    
+    if r.type == "lawn":
+        r.typeFormatted = "Lawn Mowing"
+    elif r.type == "rake":
+        r.typeFormatted = "Leaf Raking"
+    else:
+        r.typeFormatted = "Snow Shoveling"
+    
+    r.timeOfDayFormatted = r.timeOfDay.capitalize()
+
+    return render(request, 'request.html', {'request': r})
+
 @login_required
 def profile(request):
     return render(request, "profile.html")
@@ -138,7 +177,7 @@ def profileupdate(request):
             request.user.username = request.POST["email"]
         if request.POST["name"]:
             request.user.userprofile.userName = request.POST["name"]
-        if request.user.userprofile.userType == "customer" and request.POST["address"]:
+        if request.user.userprofile.userType == "customer" or "owner" and request.POST["address"]:
             request.user.userprofile.userAddress = request.POST["address"]
         if request.POST["zipcode"]:
             request.user.userprofile.userZipCode = request.POST["zipcode"]   
@@ -151,11 +190,19 @@ def profileupdate(request):
 @login_required
 def money(request):
     if 'deposit' in request.POST:
-        if request.user.userprofile.userType == "customer" and float(request.POST["deposit"]) > 0:
+        if (request.user.userprofile.userType == "customer" or "owner") and (float(request.POST["deposit"])) > 0:
             request.user.userprofile.money += float(request.POST["deposit"])
     if 'withdraw' in request.POST:
         if request.user.userprofile.money >= float(request.POST["withdraw"]) and float(request.POST["withdraw"]) > 0:
             request.user.userprofile.money -= float(request.POST["withdraw"])
     request.user.userprofile.save()
     return render(request, "managemoney.html")
+
     
+@login_required
+def userlist(request):
+    if request.user.userprofile.userType != "owner":
+        return redirect('/', permanent=False)
+    else:
+        users = User.objects.all()
+        return render(request, "userlist.html", {'users':users})
