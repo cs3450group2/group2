@@ -22,7 +22,7 @@ urlpatterns = [
     path('register/', views.register),
     path('', views.index),
     path('request/', views.requests),
-    path('request/past', views.pastRequests),
+    path('request/past/', views.pastRequests),
     path('request/<int:id>/', views.request, name='request'),
     path('request/new/', views.newrequest),
     path('request/open/', views.openRequests),

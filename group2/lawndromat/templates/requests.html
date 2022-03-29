@@ -8,7 +8,16 @@
 
 {% block content %}
 
-<h1 class="mt-3">{{title}}</h1>
+<div class="alignbutton">
+  <h1 class="mt-3">{{title}}</h1>
+  {% if user.userprofile.userType == "customer" %}
+    <a href="/request/new" class="btn btn-primary">Create New Job</a>
+  {% else %}
+    <a href="/request/open" class="btn btn-primary">View Open Jobs</a>
+  {% endif %}
+</div>
+
+
 
 <table class="table">
   <thead>
