@@ -6,30 +6,103 @@
 	{% if user.is_authenticated %}
 		<form method="POST">
             {% csrf_token %}
-            <label class="form-label">Schedule</label>
+            <label class="form-label"><h1>Schedule</h1></label>
+			<h2>Sunday</h2>
+			<div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="sunday morning" name="data" value="1,morning">
+                <label for="sunday morning" class="form-check-label" name="sunday morning">Morning</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="sunday afternoon" name="data" value="1,afternoon">
+                <label for="sunday afternoon" class="form-check-label" name="sunday afternoon">Afternoon</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="sunday evening" name="data" value="1,evening">
+                <label for="sunday evening" class="form-check-label" name="sunday evening">Evening</label>
+            </div>
+			
+			<h2>Monday</h2>
             <div class="mb-3">
                 <input class="form-check-input" type="checkbox" id="monday morning" name="data" value="2,morning">
-                <label for="monday morning" class="form-check-label" name="monday morning">Monday morning</label>
+                <label for="monday morning" class="form-check-label" name="monday morning">Morning</label>
             </div>
             <div class="mb-3">
                 <input class="form-check-input" type="checkbox" id="monday afternoon" name="data" value="2,afternoon">
-                <label for="monday afternoon" class="form-check-label" name="monday afternoon">Monday afternoon</label>
+                <label for="monday afternoon" class="form-check-label" name="monday afternoon">Afternoon</label>
             </div>
             <div class="mb-3">
                 <input class="form-check-input" type="checkbox" id="monday evening" name="data" value="2,evening">
-                <label for="monday evening" class="form-check-label" name="monday evening">Monday evening</label>
+                <label for="monday evening" class="form-check-label" name="monday evening">Evening</label>
             </div>
+			
+			<h2>Tuesday</h2>
             <div class="mb-3">
                 <input class="form-check-input" type="checkbox" id="tuesday morning" name="data" value="3,morning">
-                <label for="tuesday morning" class="form-check-label" name="tuesday morning">Tuesday morning</label>
+                <label for="tuesday morning" class="form-check-label" name="tuesday morning">Morning</label>
             </div>
             <div class="mb-3">
                 <input class="form-check-input" type="checkbox" id="tuesday afternoon" name="data" value="3,afternoon">
-                <label for="tuesday afternoon" class="form-check-label" name="tuesday afternoon">Tuesday afternoon</label>
+                <label for="tuesday afternoon" class="form-check-label" name="tuesday afternoon">Afternoon</label>
             </div>
             <div class="mb-3">
                 <input class="form-check-input" type="checkbox" id="tuesday evening" name="data" value="3,evening">
-                <label for="tuesday evening" class="form-check-label" name="tuesday evening">Tuesday evening</label>
+                <label for="tuesday evening" class="form-check-label" name="tuesday evening">Evening</label>
+            </div>
+			
+			<h2>Wednesday</h2>
+			<div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="wednesday morning" name="data" value="4,morning">
+                <label for="wednesday morning" class="form-check-label" name="wednesday morning">Morning</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="wednesday afternoon" name="data" value="4,afternoon">
+                <label for="wednesday afternoon" class="form-check-label" name="wednesday afternoon">Afternoon</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="wednesday evening" name="data" value="4,evening">
+                <label for="wednesday evening" class="form-check-label" name="wednesday evening">Evening</label>
+            </div>
+			
+			<h2>Thursday</h2>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="thursday morning" name="data" value="5,morning">
+                <label for="thursday morning" class="form-check-label" name="thursday morning">Morning</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="thursday afternoon" name="data" value="5,afternoon">
+                <label for="thursday afternoon" class="form-check-label" name="thursday afternoon">Afternoon</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="thursday evening" name="data" value="5,evening">
+                <label for="thursday evening" class="form-check-label" name="thursday evening">Evening</label>
+            </div>
+			
+			<h2>Friday</h2>
+			<div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="friday morning" name="data" value="6,morning">
+                <label for="friday morning" class="form-check-label" name="friday morning">Morning</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="friday afternoon" name="data" value="6,afternoon">
+                <label for="friday afternoon" class="form-check-label" name="friday afternoon">Afternoon</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="friday evening" name="data" value="6,evening">
+                <label for="friday evening" class="form-check-label" name="friday evening">Evening</label>
+            </div>
+			
+			<h2>Saturday</h2>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="saturday morning" name="data" value="7,morning">
+                <label for="saturday morning" class="form-check-label" name="saturday morning">Morning</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="saturday afternoon" name="data" value="7,afternoon">
+                <label for="saturday afternoon" class="form-check-label" name="saturday afternoon">Afternoon</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" id="saturday evening" name="data" value="7,evening">
+                <label for="saturday evening" class="form-check-label" name="saturday evening">Evening</label>
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
