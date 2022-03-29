@@ -9,13 +9,13 @@
 		<h2 align="center">Welcome to Lawndromat!</h2>
 		<h2>ZipCode</h2>
 		<p>{{ user.userprofile.userZipCode }}</p>
-		{% if user.userprofile.userType == "customer" or "owner"%}
+		{% if user.userprofile.userType == "customer" or request.user.userprofile.userType == "owner"%}
 			<h2>User Address</h2>
 			<p>{{ user.userprofile.userAddress }}</p>
 		{% endif %}
 		<h2>Balance</h2>
 		<p>${{ user.userprofile.money|floatformat:2 }}</p>
-		{% if user.userprofile.userType == "worker" or "owner"%}
+		{% if user.userprofile.userType == "worker" or request.user.userprofile.userType == "owner"%}
 			<a type="button" href="/accounts/profile/availability/" class="btn btn-primary">Update Availability</a>
 		{% endif %}
 		<br>
