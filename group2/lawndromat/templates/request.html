@@ -21,7 +21,36 @@
     <a href="/request/">Back to Outstanding Jobs</a>
   {% else %}
     <p>Job completed by {{request.worker.userprofile.userName}}.</p>
-    <p> -- LEAVE FEEDBACK -- </p>
+    {% if request.thumbsUp is not None %}
+      <p>You left the following feedback:</p>
+      <p>{% if request.thumbsUp %}Thumbs Up :){% else %}Thumbs Down :({% endif %}</p>
+      <p>{{ request.feedBack }}</p>
+    {% else %}
+    <h4>Leave Feedback</h4>
+    <form method="POST" class="mb-3">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="feedback">
+      <div class="mb-3">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="thumbsUp" id="true" value="true" checked>
+          <label class="form-check-label" for="true">
+            Thumbs Up
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="thumbsUp" id="false" value="false">
+          <label class="form-check-label" for="false">
+            Thumbs Down
+          </label>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="feedBack">Feedback</label>
+        <input type="text" class="form-control" name="feedBack" id="feedBack" />
+      </div>
+      <button type="submit" class="btn btn-primary">Leave Feedback</button>
+    </form>
+    {% endif %}
     <a href="/request/past/">Back to Completed Jobs</a>
   {% endif %}
   
@@ -51,7 +80,12 @@
       </p>
     {% else %}
       <p>Job is complete</p>
-      <p>Feedback::::: </p>
+      {% if request.thumbsUp is not None %}
+        <p>{{request.customer.userprofile.userName}} gave you a {% if request.thumbsUp %}Thumbs Up :){% else %}Thumbs Down :({% endif %}</p>
+        <p>{{request.customer.userprofile.userName}} left the following comments: {{request.feedBack}}</p>
+      {% else %}
+        <p>Waiting for feedback from {{request.customer.userprofile.userName}}</p>
+      {% endif %}
       <a href="/request/past/">Back to Completed Jobs</a>
     {% endif %}
   {% endif %}
