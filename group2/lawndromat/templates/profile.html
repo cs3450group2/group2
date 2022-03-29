@@ -1,6 +1,6 @@
 {% extends "template.html" %}
 
-{% block title %}{% endblock %}
+{% block title %}Profile{% endblock %}
 
 {% block content %}
 	{% if user.is_authenticated %}
@@ -10,10 +10,8 @@
 				<h3 class="display-8 mb-1 cap">{{ user.userprofile.userName}}</h3>
 				<h6 class="display-8 mb-1">ZipCode</h6>
 				<p>{{ user.userprofile.userZipCode }}</p>
-				{% if user.userprofile.userType == "customer"%}
-					<h6 class="display-8 mb-1">Address</h6>
-					<p>{{ user.userprofile.userAddress }}</p>
-				{% endif %}
+				<h6 class="display-8 mb-1">Address</h6>
+				<p>{{ user.userprofile.userAddress }}</p>
 				<h6 class="display-8 mb-1">Balance</h6>
 				<p>${{ user.userprofile.money|floatformat:2 }}</p>
 				{% if user.userprofile.userType == "worker" %}

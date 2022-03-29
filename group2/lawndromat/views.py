@@ -167,6 +167,18 @@ def profile(request):
             aval.append(["Monday",timeOfDay[1]])
         elif timeOfDay[0] == '3':
             aval.append(["Tuesday",timeOfDay[1]])
+        elif timeOfDay[0] == '4':
+            aval.append(["Wednesday",timeOfDay[1]])
+        elif timeOfDay[0] == '5':
+            aval.append(["Thursday",timeOfDay[1]])
+        elif timeOfDay[0] == '6':
+            aval.append(["Friday",timeOfDay[1]])
+        elif timeOfDay[0] == '7':
+            aval.append(["Saturday",timeOfDay[1]])
+        elif timeOfDay[0] == '1':
+            aval.append(["Sunday",timeOfDay[1]])
+        
+        
        
     #     users += request.user.objects.filter(timeOfDay=timeOfDay).all()
     return render(request, "profile.html", {"availabilities": aval})
