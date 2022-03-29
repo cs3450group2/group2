@@ -1,0 +1,13 @@
+div.imagediv {
+  background-image: url(../img/background.jpg);
+  background-size: cover;
+  color: white;
+}
+div.floatingbox {
+  color: grey;
+}
+div.alignbutton {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
