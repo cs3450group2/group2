@@ -9,6 +9,11 @@
 <div class="container">
   <h1 class="mt-3">Create New Request</h1>
   <p>Enter the job details and click Submit Job Request.</p>
+  {% if error is not None %}
+    <div class="alert alert-danger" role="alert">
+      {{error}}
+    </div>
+  {% endif %}
   <form method="POST">
     {% csrf_token %}
     <div class="mb-3">

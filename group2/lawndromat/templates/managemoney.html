@@ -8,13 +8,14 @@
 	{% if user.is_authenticated %}
 	
 		<p>You currently have ${{ user.userprofile.money|floatformat:2 }} in your account.
-		{% if user.userprofile.userType == "customer" or "owner" %}
+		{% if user.userprofile.userType == "customer" or request.user.userprofile.userType == "owner" %}
 		<form method="POST">
 		{% csrf_token %}
 			<p>Want to add money to your account? Enter the amount to deposit here.</p>
 			<div class="mb-3">
 			<label for="deposit" class="form-label">Deposit:</label>
 			<input type="number" step="0.01" class="form-control" id="deposit" name="deposit">
+			<button type="submit" class="btn btn-success">Deposit</button>
 			</div>
 			</form>
 		{% endif %}
@@ -24,6 +25,7 @@
 			<div class="mb-3">
 			<label for="withdraw" class="form-label">Withdraw:</label>
 			<input type="number" step="0.01" class="form-control" id="withdraw" name="withdraw">
+			<button type="submit" class="btn btn-danger">Withdraw</button>
 			</div>
 		</form>
 	{% else %}
