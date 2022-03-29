@@ -220,6 +220,7 @@ def money(request):
             request.user.userprofile.money -= float(request.POST["withdraw"])
     request.user.userprofile.save()
     return render(request, "managemoney.html")
+
     
 @login_required
 def userlist(request):
