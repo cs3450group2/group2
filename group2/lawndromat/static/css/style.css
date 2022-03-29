@@ -34,3 +34,11 @@ div.containers{
    justify-content: space-between;
    align-items: flex-start;
 }
+div.insidecontainer{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+h3.cap{
+  text-transform: capitalize;
+}
