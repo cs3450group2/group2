@@ -11,3 +11,34 @@ div.alignbutton {
   justify-content: space-between;
   align-items: baseline;
 }
+
+div.rightal {
+
+  float: right;
+  width: 40%;
+}
+
+div.leftal {
+  float: left;
+  width: 50%;
+}
+
+.text-center {
+  text-align: center;
+}
+.floats{
+  float: center;
+}
+div.containers{
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-start;
+}
+div.insidecontainer{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+h3.cap{
+  text-transform: capitalize;
+}
