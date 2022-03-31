@@ -62,5 +62,6 @@ and finally logout of admin website and you should be good to go
 
 
 Unit tests are contained in the tests.py file in the repository. These can be run by entering the repository then typing the following:
+
 `bash $ python manage.py test`
 
