@@ -22,49 +22,7 @@ Django is a convenient framework for this app since it comes with a simple SQLit
 Clone project from github using the command
 
 
-`bash $ git clone https://github.com/cs3450group2/milestone1.git`
-
-
-Create and start a virtual environment
-
-
-`bash $ virtualenv --no-site-packages`
-
-
-Install the project dependencies
-
-
-`bash $ pip install -r requirements.txt`
-
-
-Create a file named "secret.sh"
-
-
-`bash $ touch secrets.sh`
-
-
-Obtain a secret from MiniWebTool key and add to secret.sh
-
-
-`bash $ export SECRET_KEY='<secret_key>'`
-
-
-Add secret.sh to .gitignore file
-
-
-Create a postgres db and add the credentials to settings.py
-```
-DATABASES = {
-   'default':  {
-       'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME': 'db_name',
-       'USER': 'name',
-       'PASSWORD': '',
-       'HOST': 'localhost',
-       'PORT': '',
-       }
-   }
-```
+`bash $ git clone git@github.com:cs3450group2/group2.git`
 
 
 Migrate in bash
@@ -90,15 +48,16 @@ Then migrate again
 
 `bash $ python manage.py migrate`
 
-
-and finally
-
-
+runserver then access admin site
 `bash $ python manage.py runserver`
+`localhost:8000/admin`
 
+manually create an owner user
 
-Type `localhost:8000` in a browser to see the app running.
+`to do this you must access the admin server and create a user then again in userProfile with a type of owner all lowercase once you have create it make sure the
+the user create in user model is linked to the user you created in userProfile so it creates a 1-1 relation.`
 
+and finally logout of amdin website and you should be good to go
 
 # Unit testing instructions
 
@@ -106,18 +65,3 @@ Type `localhost:8000` in a browser to see the app running.
 Unit tests are contained in the tests.py file in the repository. These can be run by entering the repository then typing the following:
 `bash $ python manage.py test`
 
-
-# System testing instructions
-
-
-Start by running an instance of the web app by first entering the repository and then by entering the following:
-`bash $ python manage.py runserver`
-
-
-Now that the app is running, open an internet browser and enter the address `localhost:8000`
-
-
-Login to the web app using the following credentials.
-
-
-Username: SystemTest, Password: systest
