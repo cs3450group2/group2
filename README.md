@@ -54,8 +54,7 @@ runserver then access admin site
 
 manually create an owner user
 
-`to do this you must access the admin server and create a user then again in userProfile with a type of owner all lowercase once you have create it make sure the
-the user create in user model is linked to the user you created in userProfile so it creates a 1-1 relation.`
+`to do this you must access the admin server and create a user, then create the same user in userProfile with a type of owner all lowercase. Once you have create it make sure the inside userprofile table you select the which user you create in the user table so they link to a 1-1 relationship`
 
 and finally logout of amdin website and you should be good to go
 
