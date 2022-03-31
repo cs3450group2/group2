@@ -54,7 +54,7 @@ runserver then access admin site
 
 manually create an owner user
 
-`to do this you must access the admin server and create a user, then create a userProfile with a type of "owner", all lowercase. Once you have created it, make sure the userProfile is assigned to the user you just created so they link in a 1-1 relationship.
+`to do this you must access the admin server and create a user, then create a userProfile with a type of "owner", all lowercase. Once you have created it, make sure the userProfile is assigned to the user you just created so they link in a 1-1 relationship.`
 
 and finally logout of admin website and you should be good to go
 
