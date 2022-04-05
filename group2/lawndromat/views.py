@@ -125,6 +125,9 @@ def openRequests(request):
 @login_required
 def request(request, id):
     if request.method == "POST":
+        if request.POST['action'] == "cancel":
+            Request.objects.filter(id=id).delete()
+            return redirect('/request/', permanent=False)
         if request.POST['action'] == "accept":
             r = Request.objects.get(id=id)
             r.workerID = request.user.id

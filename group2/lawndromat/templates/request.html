@@ -18,6 +18,11 @@
     {% else %}
       <p>This job has been accepted by {{request.worker.userprofile.userName}}.</p>
     {% endif %}
+    <form method="POST" class="mb-3">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="cancel" />
+      <button type="submit" class="btn btn-danger">Cancel Job</button>
+    </form>
     <a href="/request/">Back to Outstanding Jobs</a>
   {% else %}
     <p>Job completed by {{request.worker.userprofile.userName}}.</p>
@@ -29,7 +34,7 @@
     <h4>Leave Feedback</h4>
     <form method="POST" class="mb-3">
       {% csrf_token %}
-      <input type="hidden" name="action" value="feedback">
+      <input type="hidden" name="action" value="feedback" />
       <div class="mb-3">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="thumbsUp" id="true" value="true" checked>
