@@ -17,6 +17,9 @@ Django is a convenient framework for this app since it comes with a simple SQLit
 
 
 ## Build instructions
+install Django
+
+`pip install Django"
 
 
 Clone project from github using the command
