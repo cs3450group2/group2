@@ -10,7 +10,7 @@
 
 <h2 class="mt-3">{{request.typeFormatted}} on the {{request.timeOfDayFormatted}} of {{request.date|date:'D d M Y'}} </h2>
 
-{% if user.userprofile.userType == "customer" %}
+{% if user.userprofile.userType == "customer" or user.userprofile.userType == "owner" %}
   <p>Cost: ${{request.cost|floatformat:2}}</p> 
   {% if not request.complete %}
     {% if request.workerID is None %}

@@ -248,3 +248,23 @@ def userlist(request):
     else:
         users = User.objects.all()
         return render(request, "userlist.html", {'users':users})
+        
+@login_required
+def allrequests(request):
+    if request.user.userprofile.userType != "owner":
+        return redirect('/request/past/', permanent=False)
+    else:
+        requests = Request.objects.all()
+        for r in requests:
+            if r.type == "lawn":
+                r.typeFormatted = "Lawn Mowing"
+            elif r.type == "rake":
+                r.typeFormatted = "Leaf Raking"
+            else:
+                r.typeFormatted = "Snow Shoveling"
+            r.customer = User.objects.get(id=r.customerID)
+            if r.workerID is not None:
+                r.worker = User.objects.get(id=r.workerID)
+            
+            r.timeOfDayFormatted = r.timeOfDay.capitalize()
+        return render(request, 'all_requests.html', {'requests':requests})

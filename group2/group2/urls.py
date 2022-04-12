@@ -32,4 +32,5 @@ urlpatterns = [
     path('users/list/', views.userlist),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/profile/availability/', views.availability),
+    path('requests/all/', views.allrequests),
 ]

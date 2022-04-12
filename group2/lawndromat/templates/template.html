@@ -44,8 +44,10 @@
                   <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="/request/new/">Create new job request</a></li>
                     <li><a class="dropdown-item" href="/request/">View my outstanding jobs</a></li>
-					          <li><a class="dropdown-item" href="/request/past">View my past jobs</a></li>
-
+					<li><a class="dropdown-item" href="/request/past">View my past jobs</a></li>
+					{% if user.userprofile.userType == "owner" %}
+						<li><a class="dropdown-item" href="/requests/all/">View all jobs</a></li>
+					{% endif %}
                   </ul>
                 </li>
               {% else %}
@@ -67,7 +69,7 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/users/list/">Users</a>
 				</li>
-				{% endif %}			  
+				{% endif %}
             {% else %}
               <li class="nav-item">
                 <a class="nav-link" href="/accounts/login/">Login</a>
