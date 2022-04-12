@@ -231,10 +231,10 @@ def profileupdate(request):
 
 @login_required
 def money(request):
-    if 'deposit' in request.POST:
+    if 'deposit' in request.POST and request.POST["deposit"] != "":
         if (request.user.userprofile.userType == "customer" or request.user.userprofile.userType == "owner") and (float(request.POST["deposit"])) > 0:
             request.user.userprofile.money += float(request.POST["deposit"])
-    if 'withdraw' in request.POST:
+    if 'withdraw' in request.POST and request.POST["withdraw"] != "":
         if request.user.userprofile.money >= float(request.POST["withdraw"]) and float(request.POST["withdraw"]) > 0:
             request.user.userprofile.money -= float(request.POST["withdraw"])
     request.user.userprofile.save()
