@@ -19,9 +19,9 @@
       <th scope="col">Cost</th>
 	  <th scope="col">Customer Name</th>
       <th scope="col">Worker Name</th>
-      <th scope="col">Wage</th>
       <th scope="col">Address</th>
 	  <th scope="col">Status</th>
+	  <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -33,13 +33,13 @@
         <td>${{request.cost|floatformat:2}}</td>
 		<td>{{request.customer.userprofile.userName}}</td>
         <td>{% if request.workerID is not None %}{{request.worker.userprofile.userName}}{% else %}-{% endif %}</td>
-        <td>${{request.cost|floatformat:2}}</td>
         <td>{{request.customer.userprofile.userAddress}}</td>
 	    {% if request.complete == 0 %}
 		    <td>Incomplete</td>
 	    {% else %}
 			<td>Complete</td>
         {% endif %}
+		<td><a href="{% url 'request' request.id %}">View</a></td>
       </tr>
     {% endfor %}
   </tbody>

@@ -27,6 +27,7 @@
   {% else %}
     <p>Job completed by {{request.worker.userprofile.userName}}.</p>
     {% if request.thumbsUp is not None %}
+
       <p>You left the following feedback:</p>
       <p>{% if request.thumbsUp %}Thumbs Up :){% else %}Thumbs Down :({% endif %}</p>
       <p>{{ request.feedBack }}</p>
