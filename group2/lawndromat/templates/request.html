@@ -23,12 +23,20 @@
       <input type="hidden" name="action" value="cancel" />
       <button type="submit" class="btn btn-danger">Cancel Job</button>
     </form>
-    <a href="/request/">Back to Outstanding Jobs</a>
+	{% if user.userprofile.userType == "owner" and request.customer.customerID != user.id %}
+		<a href="/requests/all/">Back to All Jobs</a>
+	{% else %}
+		<a href="/request/">Back to Outstanding Jobs</a>
+	{% endif %}
   {% else %}
     <p>Job completed by {{request.worker.userprofile.userName}}.</p>
     {% if request.thumbsUp is not None %}
-
+	  
+	{% if user.userprofile.userType == "owner" %}
+	  <p>{{request.customer.userprofile.userName}} left the following feedback:</p>
+	{% else %}
       <p>You left the following feedback:</p>
+	{% endif %}
       <p>{% if request.thumbsUp %}Thumbs Up :){% else %}Thumbs Down :({% endif %}</p>
       <p>{{ request.feedBack }}</p>
     {% else %}
@@ -57,7 +65,11 @@
       <button type="submit" class="btn btn-primary">Leave Feedback</button>
     </form>
     {% endif %}
-    <a href="/request/past/">Back to Completed Jobs</a>
+	{% if user.userprofile.userType == "owner" and request.customer.customerID != user.id %}
+		<a href="/requests/all/">Back to All Jobs</a>
+	{% else %}
+		<a href="/request/past/">Back to Completed Jobs</a>
+	{% endif %}
   {% endif %}
   
 

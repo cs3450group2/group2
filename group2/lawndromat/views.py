@@ -155,6 +155,11 @@ def request(request, id):
         r = Request.objects.get(id=id, customerID=request.user.id)
         if r.workerID is not None:
             r.worker = User.objects.get(id=r.workerID)
+    elif request.user.userprofile.userType == "owner":
+        r = Request.objects.get(id=id)
+        r.customer = User.objects.get(id=r.customerID)
+        if r.workerID is not None:
+            r.worker = User.objects.get(id=r.workerID)
     elif request.user.userprofile.userType == "worker":
         r = Request.objects.get(id=id)
         if r.workerID is not None and r.workerID != request.user.id:
